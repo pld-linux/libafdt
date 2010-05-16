@@ -13,8 +13,9 @@ Group:		Libraries
 Source0:	http://downloads.sourceforge.net/project/libafdt/%{name}-%{version}.tar.gz
 # Source0-md5:	8051b4e88c5804ce34e221cb62c5e672
 URL:		http://libafdt.sourceforge.net/
-BuildRequires:	libevent >= 1.4.5
+BuildRequires:	libevent-devel >= 1.4.5
 %{?with_tests:BuildRequires:	python}
+%{?with_apidocs:BuildRequires:	doxygen}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
