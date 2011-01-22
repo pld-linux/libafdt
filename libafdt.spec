@@ -13,8 +13,12 @@ Group:		Libraries
 Source0:	http://downloads.sourceforge.net/project/libafdt/%{name}-%{version}.tar.gz
 # Source0-md5:	8051b4e88c5804ce34e221cb62c5e672
 URL:		http://libafdt.sourceforge.net/
+Patch0:		%{name}-link.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
 %{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	libevent-devel >= 1.4.5
+BuildRequires:	libtool
 %{?with_tests:BuildRequires:	python}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -63,8 +67,13 @@ Dokumentacja API biblioteki libafdt.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
+%{__libtoolize}
+%{__aclocal} -I m4
+%{__autoconf}
+%{__automake}
 %configure \
 	--enable-shared \
 	%{!?with_static_libs:--disable-static}
