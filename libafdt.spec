@@ -12,6 +12,7 @@ License:	BSD
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/project/libafdt/%{name}-%{version}.tar.gz
 # Source0-md5:	8051b4e88c5804ce34e221cb62c5e672
+# https://github.com/facebook/libafdt
 URL:		http://libafdt.sourceforge.net/
 Patch0:		%{name}-link.patch
 BuildRequires:	autoconf
