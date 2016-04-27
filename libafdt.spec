@@ -7,10 +7,10 @@
 Summary:	LIBrary for Asynchronous File Descriptor Transfer
 Name:		libafdt
 Version:	0.1.0
-Release:	2
+Release:	3
 License:	BSD
 Group:		Libraries
-Source0:	http://downloads.sourceforge.net/project/libafdt/%{name}-%{version}.tar.gz
+Source0:	http://downloads.sourceforge.net/libafdt/%{name}-%{version}.tar.gz
 # Source0-md5:	8051b4e88c5804ce34e221cb62c5e672
 URL:		http://facebook.github.io/libafdt/
 Patch0:		%{name}-link.patch
@@ -58,6 +58,9 @@ Statyczna biblioteka libafdt.
 Summary:	libafdt API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libafdt
 Group:		Documentation
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 API and internal documentation for libafdt library.
