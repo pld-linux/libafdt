@@ -7,7 +7,7 @@
 Summary:	LIBrary for Asynchronous File Descriptor Transfer
 Name:		libafdt
 Version:	0.1.0
-Release:	4
+Release:	5
 License:	BSD
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/libafdt/%{name}-%{version}.tar.gz
