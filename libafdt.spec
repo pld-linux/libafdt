@@ -58,9 +58,7 @@ Statyczna biblioteka libafdt.
 Summary:	libafdt API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libafdt
 Group:		Documentation
-%if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
-%endif
 
 %description apidocs
 API and internal documentation for libafdt library.
