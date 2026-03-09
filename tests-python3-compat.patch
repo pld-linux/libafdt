@@ -1,0 +1,70 @@
+--- libafdt-0.1.0/test/runtests.py.orig	2009-10-24 18:23:16.000000000 +0200
++++ libafdt-0.1.0/test/runtests.py	2026-03-10 00:06:00.000000000 +0100
+@@ -8,9 +8,15 @@
+ import subprocess
+ import errno
+ import signal
+-import urllib2
++try:
++  import urllib.request as urllib2
++except ImportError:
++  import urllib2
+ import threading
+-import Queue
++try:
++  import queue as Queue
++except ImportError:
++  import Queue
+ 
+ 
+ 
+@@ -37,7 +43,7 @@
+       try:
+         if proc is not None:
+           os.kill(proc.pid, signal.SIGTERM)
+-      except OSError, err:
++      except OSError as err:
+         if err.errno != errno.ESRCH:
+           traceback.print_exc()
+ 
+@@ -75,7 +81,7 @@
+     def openurl(port, path):
+       with contextlib.closing(urllib2.urlopen(
+         "http://localhost:%d/%s" % (port, path))) as handle:
+-        return handle.read()
++        return handle.read().decode("ascii")
+ 
+     def checkret(port, path, content):
+       self.assertEqual(openurl(port, path), content)
+@@ -176,7 +182,7 @@
+     # The second server should receive the socket quickly
+     self.assertEqual(q.get(timeout=1.0/16), "afdt")
+     t.join(1.0/16)
+-    self.assertFalse(t.isAlive())
++    self.assertFalse(t.is_alive())
+     # Close the socket on the first server
+     checkret(self.port0, "close_prod", "closed")
+     # Verify that the second is listening
+@@ -220,7 +226,7 @@
+     self.clproc = subprocess.Popen(PREFIX +
+         ["./" + self.client], stdin=subprocess.PIPE)
+     time.sleep(1.0/4)
+-    self.clproc.stdin.write("TEST1")
++    self.clproc.stdin.write(b"TEST1")
+     time.sleep(1.0/4)
+ 
+     # Remove the signal handler
+@@ -228,11 +234,11 @@
+     # Let the server exit
+     time.sleep(1.0/2)
+ 
+-    self.clproc.stdin.write("TEST2")
++    self.clproc.stdin.write(b"TEST2")
+     self.clproc.stdin.close()
+     time.sleep(1.0/4)
+ 
+-    self.assertEqual(self.svproc.stdout.read(), "TEST1TEST2")
++    self.assertEqual(self.svproc.stdout.read(), b"TEST1TEST2")
+ 
+     # Make sure they both go down in a reasonable time
+     # TODO(dreiss): Factor out subprocs?
