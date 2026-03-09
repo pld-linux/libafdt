@@ -7,7 +7,7 @@
 Summary:	LIBrary for Asynchronous File Descriptor Transfer
 Name:		libafdt
 Version:	0.1.0
-Release:	9
+Release:	10
 License:	BSD
 Group:		Libraries
 Source0:	https://downloads.sourceforge.net/libafdt/%{name}-%{version}.tar.gz
@@ -16,6 +16,8 @@ URL:		https://facebook.github.io/libafdt/
 Patch0:		%{name}-link.patch
 # Python 3 test harness compatibility
 Patch1:		tests-python3-compat.patch
+# libevent2-compatible bufferevent setup in test helper binaries
+Patch2:		tests-libevent2-bufferevent.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_apidocs:BuildRequires:	doxygen}
@@ -72,6 +74,7 @@ Dokumentacja API biblioteki libafdt.
 %setup -q
 %patch -P0 -p1
 %patch -P1 -p1
+%patch -P2 -p1
 
 %build
 %{__libtoolize}

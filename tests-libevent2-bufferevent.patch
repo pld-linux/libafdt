@@ -1,0 +1,21 @@
+--- libafdt-0.1.0/test/catter.c.orig	2012-10-11 21:35:08.000000000 +0200
++++ libafdt-0.1.0/test/catter.c	2026-03-09 13:20:00.000000000 +0100
+@@ -108,15 +108,15 @@
+     abort();
+   }
+ 
+-  ctx->wbufev = bufferevent_new(received_fd, NULL, bufferevent_wcb, bufferevent_error, userdata);
++  ctx->wbufev = bufferevent_socket_new(ctx->eb, received_fd, 0);
+   assert(ctx->wbufev != NULL);
+-  bufferevent_base_set(ctx->eb, ctx->wbufev);
++  bufferevent_setcb(ctx->wbufev, NULL, bufferevent_wcb, bufferevent_error, userdata);
+   bufferevent_enable(ctx->wbufev, EV_WRITE);
+ 
+-  ctx->rbufev = bufferevent_new(STDIN_FILENO, bufferevent_rcb, NULL, bufferevent_error, userdata);
++  ctx->rbufev = bufferevent_socket_new(ctx->eb, STDIN_FILENO, 0);
+   assert(ctx->rbufev != NULL);
+-  bufferevent_base_set(ctx->eb, ctx->rbufev);
++  bufferevent_setcb(ctx->rbufev, bufferevent_rcb, NULL, bufferevent_error, userdata);
+   bufferevent_enable(ctx->rbufev, EV_READ);
+ }
+ 
